@@ -14,4 +14,9 @@
         "name": "Naman",
         "role": "Rapio rider"
     }
+    {
+        "id": 4,
+        "name": "Carol",
+        "role": "Uber rider"
+    }
 ]
