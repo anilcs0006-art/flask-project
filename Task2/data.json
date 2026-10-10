@@ -19,4 +19,9 @@
         "name": "Carol",
         "role": "Uber rider"
     }
+    {
+        "id": 5,
+        "name": "Parol",
+        "role": "Ola rider"
+    }
 ]
