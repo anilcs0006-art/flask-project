@@ -1,0 +1,91 @@
+html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        input, textarea, button {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+        }
+        textarea {
+            min-height: 120px;
+        }
+        button {
+            background: #1877f2;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #message {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>To-Do Page</h1>
+
+    <form id="todoForm">
+        <label for="itemName">Item Name</label>
+        <input type="text" id="itemName" name="itemName"
+               placeholder="Enter item name" required>
+
+        <label for="itemDescription">Item Description</label>
+        <textarea id="itemDescription" name="itemDescription"
+                  placeholder="Enter item description" required></textarea>
+
+        <button type="submit">Submit To-Do Item</button>
+    </form>
+
+    <p id="message" role="status"></p>
+
+    <script>
+        document.getElementById("todoForm").addEventListener("submit",
+            async function (event) {
+                event.preventDefault();
+
+                const message = document.getElementById("message");
+                const itemName = document.getElementById("itemName").value.trim();
+                const itemDescription =
+                    document.getElementById("itemDescription").value.trim();
+
+                try {
+                    const response = await fetch("/submittodoitem", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            itemName: itemName,
+                            itemDescription: itemDescription
+                        })
+                    });
+
+                    const result = await response.json();
+
+                    if (!response.ok) {
+                        throw new Error(result.error || "Submission failed");
+                    }
+
+                    message.textContent = result.message;
+                    this.reset();
+                } catch (error) {
+                    message.textContent = "Error: " + error.message;
+                    message.style.color = "red";
+                }
+            });
+    </script>
+</body>
+</html>
+
+
