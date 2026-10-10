@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Your Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        input, textarea, button {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            margin: 10px 0 18px;
+            padding: 12px;
+        }
+
+        button {
+            background: #1769aa;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .error {
+            color: #b00020;
+            background: #ffebee;
+            padding: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Submit Your Data</h2>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST" action="/">
+        <label for="name">Name</label>
+        <input
+            type="text"
+            id="name"
+            name="name"
+            value="{{ name or '' }}"
+            required
+        >
+
+        <label for="email">Email</label>
+        <input
+            type="email"
+            id="email"
+            name="email"
+            value="{{ email or '' }}"
+            required
+        >
+
+        <label for="message">Message</label>
+        <textarea
+            id="message"
+            name="message"
+            rows="4"
+            required
+        >{{ message or '' }}</textarea>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
